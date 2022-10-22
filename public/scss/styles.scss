@@ -1,0 +1,18 @@
+$primary: #36bcfa;
+$secondary: #bdbdbd;
+$body-bg:#f5f6fa;
+
+$headings-color:#111111;
+
+$btn-border-radius: 0px;
+$navbar-toggler-focus-width:0px;
+button {
+    outline: none;
+}
+input {
+    outline: none;
+}
+
+
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
