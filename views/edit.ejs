@@ -1,0 +1,14 @@
+<% layout('/layouts/boilerplate') %> 
+
+  <div class="create-blog content">
+    <!-- this action="/blogs" should be same with the parameter in app.post -->
+    <form action="/blogs/<%=blog._id %>?_method=PUT" method="POST">
+      <label for="title">Blog title:</label>
+      <input type="text" id="title" name="title" value="<%= blog.title %>" required>
+      <label for="snippet">Blog snippet:</label>
+      <input type="text" id="snippet" name="snippet" value="<%= blog.snippet %>" required>  
+      <label for="body">Blog body:</label>
+      <input type="text" id="body" name="body" value="<%= blog.body %>" required>
+      <button>Submit</button>
+    </form>
+  </div>

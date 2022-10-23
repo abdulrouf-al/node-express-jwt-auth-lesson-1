@@ -7,6 +7,9 @@ input {
   outline: none;
 }
 
+/* @import "../../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+ */ /* @import '../../node_modules/font-awesome/scss/font-awesome.scss'; 
+*/
 /*!
  * Bootstrap  v5.2.2 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors

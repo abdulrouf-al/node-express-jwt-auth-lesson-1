@@ -1,4 +1,38 @@
-const mongoose = require('mongoose');
+var mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+var passportLocalMongoose = require("passport-local-mongoose");
+
+const userSchema = new Schema({
+  email: {
+    type: String,
+    required: [true, 'Please enter an email'],
+    unique: true,
+    lowercase: true,
+  }
+
+});
+
+userSchema.plugin(passportLocalMongoose);
+
+
+const User =  mongoose.model("User", userSchema);
+
+module.exports =User;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
@@ -15,7 +49,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Please enter a password'],
     minlength: [6, 'Minimum password length is 6 characters'],
   }
-});
+}, { timestamps: true });
 
 
 // fire a function before doc saved to db
@@ -40,4 +74,4 @@ userSchema.statics.login = async function(email, password) {
 
 const User = mongoose.model('user', userSchema);
 
-module.exports = User;
+module.exports = User; */
