@@ -4,10 +4,11 @@
         
 
 <body dir="rtl">
+  
     <nav class="navbar padding navbar-expand-lg fw-bolder">
         <div class="container-fluid">
     
-            <a href="blogs.html" class="navbar-brand fw-bold ">اكتب</a>
+            <a href="homePage" class="navbar-brand fw-bold ">اكتب</a>
             
             <div class="d-flex align-items-baseline">
                 <div id="profile-links-btn2" class="position-relative   d-block d-md-none "><a href="#"
@@ -38,7 +39,7 @@
                         سياسة الخصوصية
                     </a>
                 </div>
-            </div><a href="blogs/create"
+            </div><a href="/create"
             class="btn btn-primary text-white mb-3 m-sm-0 px-4 d-block d-md-none  fw-bold">
             تدوينة جديدة
         </a> 
@@ -85,7 +86,7 @@
                     اكتشف
                 </a>
             </div>
-            
+            <% if(user){ %> 
             <div id="profile-links-btn"  class="position-relative d-none d-lg-block  d-sm-none d-md-block"><a href="#"
                     id="dropdown-menu-links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                     class="outline-none dropdown-toggle dropdown-toggle-split text-decoration-none"><img width="30"
@@ -116,9 +117,24 @@
                     </a>
                 </div>
             </div>
+            <% } %> 
+            
         </div>
     </nav>
  
+    <div class="container">
+        
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+    </div>
     
     <%- body %> 
 

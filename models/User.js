@@ -10,7 +10,7 @@ const userSchema = new Schema({
     lowercase: true,
   }
 
-});
+},{timestamps:true});
 
 userSchema.plugin(passportLocalMongoose);
 

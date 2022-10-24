@@ -1,7 +1,6 @@
+<% layout('/layouts/boilerplate') %>
 
-<% layout('/layouts/boilerplate') %> 
-
-<!--   <div class="details content">
+  <!--   <div class="details content">
     <h2><%= blog._id %></h2>
     <h2><%= blog.title %></h2>
     <div class="content">
@@ -9,27 +8,73 @@
     </div>
      
   </div> -->
-  <div class="container" dir="rtl">
+  <div class="container lead" dir="rtl">
     <div class="row">
-        <div class="col-lg-10 mx-auto my-5">
-        
-                   <div class="d-flex mx-auto media media-hover mb-4 mb-sm-0 p-3 p-sm-5 rounded-lg font-droid align-items-center">
-                        <a class="text-decoration-none text-black" href="/blogs/<%= blog._id %>">
-                            <h3 class="h3 h-sm-5 mt-0 mb-4 fw-bold text-break"><%= blog.title %>  </h3>
-                       
-                            <p class="d-none d-sm-block text-break fs-5">
-                                <%= blog.snippet %>
-                            </p> 
-                            <p class="d-none d-sm-block text-break fs-5">
-                              <%= blog.body %>
-                          </p> 
-                        </a>
-                    </div>                       
-    
-                   
+      <div class="col-lg-10 mx-auto my-5">
+        <div class="bg-white shadow rounded-4 mx-auto mb-4 mb-sm-0 p-3 p-sm-5 rounded-lg text-justify">
+
+          <div
+            class="d-flex  media media-hover  font-droid align-items-center ">
+            <a class="text-decoration-none text-black" href="/blogs/<%= blog._id %>">
+              <h3 class="h3 h-sm-5 mt-0 mb-4 fw-bold text-break">
+                <%= blog.title %>
+              </h3>
+
+              <!-- <p class="d-none d-sm-block text-break fs-5">
+                <%= blog.snippet %>
+              </p> -->
+              <p class="d-none d-sm-block text-break fs-5">
+                <%= blog.body %>
+              </p>
+
+            </a>
+          </div>
+          <div class="d-flex flex-column flex-sm-row mt-2 border-bottom">
+            <div class="d-flex mb-3 mb-sm-4">
+              <div wire:id="3MjpEkmwxxzKopGXlLka"> <span class="me-2 mb-0">
+                  1
+                </span> <a wire:click="toggleLike" class="text-secondary  me-3"><i aria-hidden="true"
+                    class="fa fa-heart fs-5"></i></a></div> <a
+                href="https://www.facebook.com/sharer/sharer.php?u=https://oktob.io/posts/44434" target="_blank&quot;"
+                class="text-secondary px-2 me-2"><i aria-hidden="true" class="fa fa-facebook-f fs-5"></i></a> <a
+                href="https://twitter.com/intent/tweet?text=ذاكرة جدتي&amp;via=oktob_app&amp;related=oktob_app&amp;url=https://oktob.io/posts/44434"
+                target="_blank" class="text-secondary px-2"><i aria-hidden="true" class="fa fa-twitter fs-5"></i></a>
+            </div>
+            <div class="d-flex me-sm-auto text-center fw-bold mb-4 fs-5">
+              <p class="ms-2 mb-0">
+                نشرت بتاريخ:
+              </p>
+              <p class="mb-0 text-secondary">
+                21/09/2022
+              </p>
+            </div>
+          </div>
+          <div class="d-flex flex-column flex-sm-row align-items-center mt-4"><a href="https://oktob.io/Noof1t1"
+              class="text-black text-hover-black text-decoration-none">
+              <div class="d-flex align-items-center"><span class="ms-3 ms-sm-4 text-secondary fw-bold">
+                  كتبها:
+                </span> <img width="40" src="https://oktob.io/storage/4719/conversions/mpA-MXQc-cropped.jpg"
+                  alt="Nouf Khalid" class="rounded-circle">
+                <div class="me-3">
+                  <p class="mb-0 fw-bold">
+                    <%= blog.username %>
+                  </p>
+                  <p class="mb-0 text-secondary">الحياة البسيطة ذات المعنى العميق ذلك ما...
+                  </p>
+                </div>
+              </div>
+            </a> <button wire:id="WlDPCfO3NBUkJywwZdBR" wire:key="user_3771" wire:click="toggleFollow()"
+              class="btn font-jannaLT font-14px px-4 font-14px px-4  me-sm-auto mt-4 my-sm-2 btn-primary text-white"><span
+                class="fw-bold"><i aria-hidden="true" class="fa fa-plus"></i>
+                تابع
+                الكاتب
+              </span></button></div>
+
         </div>
+      </div>
     </div>
-</div>
-<a href="/blogs/<%=blog._id %>/edit">edit</a>
-    <form action="/blogs/<%=blog._id %>?_method=DELETE" method="POST">
-    <button class="delete">Delete</button></form>
+  </div>
+  <a href="/blogs/<%=blog._id %>/edit">edit</a>
+  <form action="/blogs/<%=blog._id %>?_method=DELETE" method="POST">
+    <button class="delete">Delete</button>
+  </form>

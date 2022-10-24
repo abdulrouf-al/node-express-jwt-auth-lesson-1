@@ -1,4 +1,28 @@
-const jwt = require('jsonwebtoken');
+
+module.exports.isLoggedIn = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    req.session.returnTo = req.originalUrl;
+    req.flash('error', 'You are not authenticated');
+    return res.redirect('/login')
+  }
+  next();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const requireAuth = (req, res, next) => {
@@ -41,4 +65,4 @@ const checkUser = (req, res, next) => {
 };
 
 
-module.exports = { requireAuth, checkUser };
+module.exports = { requireAuth, checkUser }; */

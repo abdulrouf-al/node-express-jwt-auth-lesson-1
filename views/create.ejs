@@ -1,4 +1,10 @@
 <% layout('/layouts/boilerplate') %> 
+
+
+<% if (message) { %>
+  <p><%= message %></p>
+  <% } %>
+
   <div class="create-blog content" dir="rtl" >
     <!-- this action="/blogs" should be same with the parameter in app.post -->
     <form action="/blogs" method="POST">
