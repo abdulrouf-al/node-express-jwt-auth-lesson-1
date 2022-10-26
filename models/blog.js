@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 // to create a model 
 
 const blogSchema = new Schema({
-  posted_at: Date,
+  
   title: {
     type: String,
     required: true,

@@ -9,7 +9,7 @@
           <div
             class="d-flex  media media-hover  font-droid align-items-center ">
             <a class="text-decoration-none text-black" href="/blogs/<%= blog._id %>">
-              <h3 class="h3 h-sm-5 mt-0 mb-4 fw-bold text-break">
+              <h3 class="h3 h-sm-5 mt-0 mb-5 fw-bold text-break">
                 <%= blog.title %>
               </h3>
 
@@ -38,8 +38,8 @@
                 نشرت بتاريخ:
               </p>
               <p class="mb-0 text-secondary">
-                21/09/2022
-              </p>
+                <time> <%= moment(blog.createdAt).format('DD/MM/YYYY'); %> </time>
+               </p>
             </div>
           </div>
           <div class="d-flex flex-column flex-sm-row align-items-center mt-4"><a href="https://oktob.io/Noof1t1"
@@ -80,6 +80,8 @@
       </div>
     </div>
   </div>
+
+ 
   <!-- <form action="/blogs/<%=blog._id %>?_method=DELETE" method="POST">
     <button class="delete">Delete</button>
   </form> -->

@@ -10,6 +10,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
+
 //routes
 const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
@@ -20,7 +21,10 @@ const ejsMate = require('ejs-mate');
 
 // middleware
 app.use(express.static('public'));
-app.use(express.json());
+
+app.use(express.urlencoded({ extended: true })); // allowing us to make POST requests
+app.use(express.json()); // allowing us to accept JSON POST responses work with express.urlencoded
+
 app.use(cookieParser());
 //app.use(session(express-session));
 app.use(session({
@@ -33,7 +37,6 @@ app.use(session({
 app.use(flash());
 
 
-app.use(express.urlencoded({ extended: true }));
 
 app.use(methodOverride('_method'));
 app.use((req, res, next) => {
@@ -63,23 +66,11 @@ passport.serializeUser(User.serializeUser()); // get into a session
 passport.deserializeUser(User.deserializeUser());
 
 
-
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
-
-app.use('/css', express.static(__dirname + '/node_modules/font-awesome/scss'));
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap-icons/font/bootstrap-icons.css'));
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap-icons/css/font-awesome.css'));
-app.use('/fonts', express.static(__dirname + '/node_modules/font-awesome/css/font-awesome.min.css'))
-app.use('/css', express.static(__dirname + '/node_modules/font-awesome/css/font-awesome.min.css'))
-
-
 // view engine
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 
-
  
-  
 app.use((req, res, next) => {
   res.locals.user = req.user;
   res.locals.success = req.flash('success');
@@ -87,6 +78,7 @@ app.use((req, res, next) => {
   res.locals.message = req.flash.message;
   // console.log(res.locals.user);
   // delete req.session.message;
+  //res.locals.moment = moment;
    next();
 });
 
@@ -110,8 +102,6 @@ app.use((req, res, next) => {
 /* app.get('*', checkUser); */
 app.get('/', (req, res) => res.redirect('/blogs'));
 app.get('/homePage', (req, res) => res.render('homePage'));
-/* app.get('/blogs', (req, res) => res.render('blogs'));
- */
 app.use('/blogs', blogRoutes);
 app.use('/', authRoutes);
 

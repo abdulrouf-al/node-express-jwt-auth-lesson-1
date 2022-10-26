@@ -2,7 +2,11 @@ const Blog = require('../models/blog');
 const passport = require("passport");
 const mongoose = require('mongoose');
 const User = require('../models/User');
-
+const moment = require('moment'); // require 21/09/2022
+moment.locale('en');
+ console.log(moment('2022-09-25T17:22:44.889+00:00').format('DD/MM/YYYY'));
+  console.log(moment('2022-09-25T17:22:44.889+00:00').fromNow());
+    
 
 
 
@@ -11,7 +15,8 @@ const User = require('../models/User');
   const blog_index = (req, res) => {
     Blog.find().sort({ createdAt: -1 }).populate('user', 'username')
       .then(result => {
-        res.render('blogs', { blogs: result, title: 'All blogs' });
+        moment.locale('ar');
+        res.render('blogs', { blogs: result,moment });
       })
       .catch(err => {
         console.log(err);
@@ -20,11 +25,11 @@ const User = require('../models/User');
   //blogs/id
   const blog_details = async (req, res) => {
     const id = req.params.id;
-    const blog = await Blog.findById(id).populate('user').populate('user');
+    //const blog = await Blog.findById(id).populate('user');//.populate('user') &&  Blog.comments.push(comment);
     Blog.findById(id)
       .then(result => {
-
-        res.render('details', { blog: result, title: 'Blog Details' });
+        moment.locale('en');
+        res.render('details', { blog: result ,moment: moment});
       })
       .catch(err => {
         console.log(err);
@@ -51,7 +56,7 @@ const User = require('../models/User');
       snippet: req.body.snippet,
       body: req.body.body,
       user: oldUser,
-      posted_at: date.past(),
+      
     });
     blog.save()
       .then(result => {
