@@ -1,19 +1,23 @@
 <% layout('/layouts/boilerplate') %> 
 
 
-<% if (message) { %>
-  <p><%= message %></p>
-  <% } %>
 
+<div class="container lead" dir="rtl">
+  <div class="row">
+    <div class="col-lg-10 mx-auto my-5">
   <div class="create-blog content" dir="rtl" >
     <!-- this action="/blogs" should be same with the parameter in app.post -->
     <form action="/blogs" method="POST">
       <label for="title">العنوان:</label>
-      <input type="text" id="title" name="title" required>
-      <label for="snippet">مقتطف من التدوينة </label>
-      <input type="text" id="snippet" name="snippet" required>
+      <input class="form-control mb-3" type="text" id="title" name="title" required>
+<!--       <label for="snippet">مقتطف من التدوينة </label>
+      <input class="form-control mb-3" type="text" id="snippet" name="snippet" required> -->
       <label for="body">التدوينة</label>
-      <textarea id="body" name="body" style="width: 380px;height: 300px;" required></textarea>
-      <button>انشر</button>
+      <textarea class="form-control mb-3" id="body" name="body" style="width: 380px;height: 300px;" required></textarea>
+      <button class="btn btn-secondary">انشر</button>
     </form>
+  </div>
+
+  </div>
+  </div>
   </div>

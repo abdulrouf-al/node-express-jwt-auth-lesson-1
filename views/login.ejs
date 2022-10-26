@@ -1,18 +1,5 @@
 <% layout('/layouts/boilerplate') %> 
 
-<% console.log(error,success) %> 
-<div class="container">
-  <% if(error && error.length > 0){ %>
-      <div class="alert alert-danger" role="alert">
-          <%= error %>
-      </div>
-  <% } %>
-  <% if(success && success.length > 0){ %>
-      <div class="alert alert-success" role="alert">
-          <%= success %>
-      </div>
-  <% } %>
-</div>
 
 
 
@@ -20,6 +7,7 @@
   <div class="row">
       <div class="col-lg-10 mx-auto my-5">
 <div class="mb-3 w-50">
+  
 <form action="/login" method="POST" class="validated-form" novalidate>
 <h2>سجل في اكتب </h2>
 <label for="username" class="form-label fw-bold">اسم المستخدم</label>

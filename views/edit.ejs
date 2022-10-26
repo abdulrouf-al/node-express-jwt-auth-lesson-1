@@ -1,7 +1,12 @@
 <% layout('/layouts/boilerplate') %> 
 
+<!-- 
+<div class="container lead" dir="rtl">
+  <div class="row">
+    <div class="col-lg-10 mx-auto my-5">
+
   <div class="create-blog content">
-    <!-- this action="/blogs" should be same with the parameter in app.post -->
+
     <form action="/blogs/<%=blog._id %>?_method=PUT" method="POST">
       <label for="title">Blog title:</label>
       <input type="text" id="title" name="title" value="<%= blog.title %>" required>
@@ -12,3 +17,31 @@
       <button>Submit</button>
     </form>
   </div>
+
+  </div>
+  </div>
+  </div> -->
+
+  <div class="container lead" dir="rtl">
+    <div class="row">
+      <div class="col-lg-10 mx-auto my-5">
+    <div class="create-blog content d-flex" dir="rtl" >
+      <!-- this action="/blogs" should be same with the parameter in app.post -->
+      <div class="">
+        <form  action="/blogs/<%=blog._id %>?_method=PUT" method="POST">
+          <label  for="title">العنوان:</label>
+          <input class="form-control m-3 mx-0" type="text" id="title" name="title" value="<%= blog.title %>" required>
+          
+          <label for="body">التدوينة</label>
+          <input class="form-control m-3 mx-0" id="body" name="body" style="width: 380px;height: 300px;" value="<%= blog.body %>"  required></textarea>
+          <button class="btn btn-secondary">تعديل</button>
+        </form>
+        <form class=" mt-3 " action="/blogs/<%=blog._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-secondary">Delete</button>
+        </form>
+      </div>
+    </div>
+  
+    </div>
+    </div>
+    </div>

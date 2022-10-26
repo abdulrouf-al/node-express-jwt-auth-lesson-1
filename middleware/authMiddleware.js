@@ -1,4 +1,6 @@
 
+const Blog = require('../models/blog');
+
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     req.session.returnTo = req.originalUrl;
@@ -9,7 +11,15 @@ module.exports.isLoggedIn = (req, res, next) => {
 };
 
 
-
+module.exports.isAuthor = async (req, res, next) => {
+  const id = req.params.id;
+  const blog = await Blog.findById(id);
+  if (!(blog.user.id == req.user.id)) {
+    req.flash('error', 'not allowed to edit this blog');
+    return res.redirect(`/blogs/${ id }`);
+  }
+  next();
+}
 
 
 

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 // to create a model 
 
 const blogSchema = new Schema({
+  posted_at: Date,
   title: {
     type: String,
     required: true,
@@ -11,31 +12,36 @@ const blogSchema = new Schema({
   snippet: {
     type: String,
     required: true,
-    defaults:"new blog"
+    defaults: "new blog"
   },
   body: {
     type: String,
     required: true
   },
   user: {
-    
-        type: Schema.Types.ObjectId,
-        ref: "User"
-        //,required: true 
-   
-},
-/* comments: [
-    {
-        type: Schema.Types.ObjectId,
-        ref: "Comment"
-    }
-],
-likes: [
-    {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }
-] */
+
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    },
+    username: String,
+    email: String,
+    //,required: true 
+
+  },
+  
+  /* comments: [
+      {
+          type: Schema.Types.ObjectId,
+          ref: "Comment"
+      }
+  ],
+  likes: [
+      {
+          type: Schema.Types.ObjectId,
+          ref: "User"
+      }
+  ] */
 }, { timestamps: true });
 
 const Blog = mongoose.model('Blog', blogSchema); //blog is the collection name without the 's'

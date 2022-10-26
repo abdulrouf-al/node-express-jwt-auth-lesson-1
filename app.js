@@ -65,6 +65,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
 app.use('/css', express.static(__dirname + '/node_modules/font-awesome/scss'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap-icons/font/bootstrap-icons.css'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap-icons/css/font-awesome.css'));
@@ -84,6 +85,7 @@ app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   res.locals.message = req.flash.message;
+  // console.log(res.locals.user);
   // delete req.session.message;
    next();
 });
@@ -160,9 +162,7 @@ app.use('/', authRoutes);
 const TwitterStrategy = require('passport-twitter'); */
 
 
-/* app.use((req, res) => {
-  res.status(404).render('404', { title: '404' });
-});
+/* 
  */
 
 
@@ -178,12 +178,14 @@ app.use((err, req, res, next) => {
   next();
 });
 
-
+app.use((req, res) => {
+  res.status(404).render('404', { title: '404' });
+});
 // database connection
 const dbURI = 'mongodb+srv://abd:text1234@nodetuts.w28wcbw.mongodb.net/note-tuts';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
-  .then((result) => app.listen(5000, () => {
-    console.log('listening On Port 5000');//
+  .then((result) => app.listen(1000, () => {
+    console.log('listening On Port 1000');//
 
   }))
   .catch((err) => console.log(err));

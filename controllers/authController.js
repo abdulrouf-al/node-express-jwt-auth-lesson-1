@@ -1,6 +1,5 @@
 
 const express = require('express');
-const passport = require("passport");
 const User = require("../models/User");
 
 
@@ -11,61 +10,83 @@ const User = require("../models/User");
 }); */
 
 module.exports.signup_get = (req, res) => {
-  res.render('signup',{ error: req.flash('error'), success: req.flash('success')});
+  req.flash('success', 'flash testing signup_get ' );
+  res.render('signup');
 }
 //
 module.exports.login_get = (req, res) => {
-  
-  res.render('login',{ error: req.flash('error'), success: req.flash('success')});
+  req.flash('success', 'flash testing login_get');
+  res.render('login');
 }
 
-module.exports.signup_post = async (req, res,next) => {
+module.exports.signup_post = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
     const user = new User({ email, username })
     const newUser = await User.register(user, password);
     req.login(newUser, err => {
-      
+
       if (err) return next(err);
       req.flash('success', 'welcome');
       req.session.save(function () {  //https://github.com/jaredhanson/passport/issues/306
         return res.redirect('/');
       }
-    )}); // when user is signing up  is also logged in
-    
+      )
+    }); // when user is signing up  is also logged in
+
   } catch (e) {
+    console.log(e.message);
     req.flash('error', e.message);
     res.redirect('/signup');
   }
- 
+
 }
 
-module.exports.login_post =  passport.authenticate('local',
+module.exports.login_post = (req, res) => {
+  //console.log("req.session");
+  req.flash('success', 'welcome');
+  const redirectUrl = req.session.returnTo || '/';
+  delete req.session.returnTo;
+  res.redirect(redirectUrl);
+  //res.redirect('/');
+};
+
+/*   passport.authenticate('local',
   {
     failureRedirect: '/login',
     failureFlash: true,
-    successRedirect: "/blogs/create"
-  }), 
+    failureMessage: true,
+    successFlash: true,
+    //successReturnToOrRedirect: true,
+    successRedirect:'/'
+   }), 
    (req, res) => {
+     
+     const redirectUrl = req.session.returnTo || '/';
      req.flash('success', 'welcome');
-    const redirectUrl = req.session.returnTo || '/';
-     console.log(req.session.returnTo);
-     console.log(redirectUrl);
-   res.redirect(redirectUrl);
- 
+   res.redirect(redirectUrl); 
+  } */
 
-}
+
 module.exports.logout_get = (req, res) => {
   //res.cookie('jwt', '', { maxAge: 1 });
-  req.logout(function (err) {
+/*   req.logout(function (err) {
     if (err) {
       return next(err);
     }
   })
   req.flash('success', 'loggedOut');
-  res.redirect('/homePage');
-}
+  console.log("req.session");
+  res.redirect('/homePage'); */
+  req.logout(() => {
+    req.flash('success', "Goodbye!");
+    res.redirect('/')
+  });
 
+
+}
+/* 
+ */
 
 /* const User = require("../models/User");
 const jwt = require('jsonwebtoken');

@@ -1,13 +1,6 @@
 <% layout('/layouts/boilerplate') %>
 
-  <!--   <div class="details content">
-    <h2><%= blog._id %></h2>
-    <h2><%= blog.title %></h2>
-    <div class="content">
-      <p><%= blog.body %></p>
-    </div>
-     
-  </div> -->
+
   <div class="container lead" dir="rtl">
     <div class="row">
       <div class="col-lg-10 mx-auto my-5">
@@ -57,24 +50,36 @@
                   alt="Nouf Khalid" class="rounded-circle">
                 <div class="me-3">
                   <p class="mb-0 fw-bold">
-                    <%= blog.username %>
+                    <% if(blog.user.username) %>
+                  <%= blog.user.username %> 
                   </p>
+                  
                   <p class="mb-0 text-secondary">الحياة البسيطة ذات المعنى العميق ذلك ما...
                   </p>
                 </div>
               </div>
-            </a> <button wire:id="WlDPCfO3NBUkJywwZdBR" wire:key="user_3771" wire:click="toggleFollow()"
-              class="btn font-jannaLT font-14px px-4 font-14px px-4  me-sm-auto mt-4 my-sm-2 btn-primary text-white"><span
+            </a> 
+            <% if(user && user.id==blog.user.id){ %> 
+            <a href="/blogs/<%=blog._id %>/edit"
+              class="btn f px-4 font-14px px-4  me-sm-auto mt-4 my-sm-2 btn-primary text-primary bg-white"><span
                 class="fw-bold"><i aria-hidden="true" class="fa fa-plus"></i>
-                تابع
-                الكاتب
-              </span></button></div>
+               تحرير 
+              </span></a >
+            
+                <% }else{ %> 
+              <a href="/blogs/<%=blog._id %>/edit"
+                class="btn f px-4 font-14px px-4  me-sm-auto mt-4 my-sm-2 btn-primary text-primary bg-white"><span
+                  class="fw-bold"><i aria-hidden="true" class="fa fa-plus"></i>
+                تابع الكاتب  
+                </span></a >
+                <% } %> 
+              
+              </div>
 
         </div>
       </div>
     </div>
   </div>
-  <a href="/blogs/<%=blog._id %>/edit">edit</a>
-  <form action="/blogs/<%=blog._id %>?_method=DELETE" method="POST">
+  <!-- <form action="/blogs/<%=blog._id %>?_method=DELETE" method="POST">
     <button class="delete">Delete</button>
-  </form>
+  </form> -->
