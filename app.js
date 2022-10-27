@@ -71,6 +71,12 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 
  
+
+//TODO: catching errors when id involved 
+//TODO: deploying 
+//TODO: toggle buttons  and js files 
+
+
 app.use((req, res, next) => {
   res.locals.user = req.user;
   res.locals.success = req.flash('success');
@@ -155,22 +161,24 @@ const TwitterStrategy = require('passport-twitter'); */
 /* 
  */
 
+app.get('/error', (req, res) => {
+  user.fly(0);
+})
 
-
-
-
-
-app.use((err, req, res, next) => {
-  console.log(err.status , 500);
-  console.log(err.message , 'Oops! something went wrong.');
-  req.flash('error', err.message || 'Oops! something went wrong.');
-  res.redirect('back');
-  next();
-});
 
 app.use((req, res) => {
   res.status(404).render('404', { title: '404' });
 });
+
+app.use((err, req, res, next) => {
+  console.log(err.status , 500);
+  console.log(err.message, 'Oops! something went wrong.');
+  req.flash('error', err.message || 'Oops! something went wrong.');
+  res.status(500).redirect('back');
+  next();
+});
+
+
 // database connection
 const dbURI = 'mongodb+srv://abd:text1234@nodetuts.w28wcbw.mongodb.net/note-tuts';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })

@@ -26,7 +26,7 @@ moment.locale('en');
   const blog_details = async (req, res) => {
     const id = req.params.id;
     //const blog = await Blog.findById(id).populate('user');//.populate('user') &&  Blog.comments.push(comment);
-    Blog.findById(id)
+     await Blog.findById(id)
       .then(result => {
         moment.locale('en');
         res.render('details', { blog: result ,moment: moment});
@@ -70,14 +70,20 @@ moment.locale('en');
   //edit
 
   //blog_edit
-const blog_edit = async (req, res) => {
+const blog_edit = async (req, res,next) => {
     
     const id = req.params.id;
-  const blog = await Blog.findById(id).then(result => {
+  const blog = await Blog.findById(id)
+    .then(result => {
     res.render('edit', { blog: result, title: 'edit blog' });
 
-  }).catch(err => {
+    }).catch(err => {
+      return next(err);
+    if(!blog){        //return next(new AppError('page not found', 404));
     console.log(err);
+    req.flash('error', err.message || 'Oops! something went wrong.');
+      res.status(500).redirect('back');
+    }
   })
   };
 
@@ -88,8 +94,22 @@ const blog_edit = async (req, res) => {
       .then(result => {
         res.redirect(`/blogs/${ result.id }`)//      res.redirect(`/blogs/${blog.id}`);
 
-      })
-  };
+      }).catch(err => {
+        console.log(err);
+      });
+};
+  
+
+/* 
+try {
+}
+catch (err) {
+  next(err);  //will fire 'app.use((err, req, res, next) => {' from the app.js
+}
+
+*/
+
+
 
   //delete
   const blog_delete = (req, res) => {
