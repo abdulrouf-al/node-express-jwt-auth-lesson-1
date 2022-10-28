@@ -2,11 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const cookieParser = require('cookie-parser');
- const flash = require('connect-flash');
+const flash = require('connect-flash');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const methodOverride = require('method-override'); // to delete/update blogs
 const User = require("./models/User");
+const keys = require("./config/keys");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
+// const MongoDBStore = require('connect-mongo');
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
@@ -19,6 +22,7 @@ const app = express();
 const ejsMate = require('ejs-mate');
 
 
+
 // middleware
 app.use(express.static('public'));
 
@@ -27,16 +31,30 @@ app.use(express.json()); // allowing us to accept JSON POST responses work with 
 
 app.use(cookieParser());
 //app.use(session(express-session));
+
+app.use(flash());
+
+/* const store = new MongoDBStore({
+  url:  dbURIr,
+  secret: 'keyboard cat',
+   touchAfter: 24 * 60 * 60, // this one works in seconds not milliseconds
+}); 
+store.on('error', function (err) {
+console.log('session stor error',err)}); 
+*/
+
+
 app.use(session({
+  store:  MongoStore.create({
+    mongoUrl: keys.mongodb.dbURI,
+    secret: 'keyboard cat',
+    touchAfter: 24 * 3600,//// this one works in seconds not milliseconds
+  }),
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge:1000*60*60*24 }//,secure: true
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }//,secure: true
 }));
- 
-app.use(flash());
-
-
 
 app.use(methodOverride('_method'));
 app.use((req, res, next) => {
@@ -61,7 +79,7 @@ app.use((req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.authenticate('session'));
 app.use(passport.session());
-passport.use('local',new LocalStrategy(User.authenticate())); //register
+passport.use('local', new LocalStrategy(User.authenticate())); //register
 passport.serializeUser(User.serializeUser()); // get into a session
 passport.deserializeUser(User.deserializeUser());
 
@@ -70,7 +88,7 @@ passport.deserializeUser(User.deserializeUser());
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 
- 
+
 
 //TODO: catching errors when id involved 
 //TODO: deploying 
@@ -85,7 +103,7 @@ app.use((req, res, next) => {
   // console.log(res.locals.user);
   // delete req.session.message;
   //res.locals.moment = moment;
-   next();
+  next();
 });
 
 
@@ -152,7 +170,7 @@ app.use('/', authRoutes);
     });
 }); */
 
- 
+
 
 /* const passport = require('passport');
 const TwitterStrategy = require('passport-twitter'); */
@@ -171,7 +189,7 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err.status , 500);
+  console.log(err.status, 500);
   console.log(err.message, 'Oops! something went wrong.');
   req.flash('error', err.message || 'Oops! something went wrong.');
   res.status(500).redirect('back');
@@ -180,8 +198,8 @@ app.use((err, req, res, next) => {
 
 
 // database connection
-const dbURI = 'mongodb+srv://abd:text1234@nodetuts.w28wcbw.mongodb.net/note-tuts';
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
+//const dbURI = 'mongodb+srv://abd:text1234@nodetuts.w28wcbw.mongodb.net/note-tuts';
+mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then((result) => app.listen(1000, () => {
     console.log('listening On Port 1000');//
 
