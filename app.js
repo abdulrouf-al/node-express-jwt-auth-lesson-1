@@ -46,12 +46,12 @@ app.use(flash());
 store.on('error', function (err) {
 console.log('session stor error',err)}); 
 */
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+//const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
 const secret = process.env.SECRET ||'keyboard cat'
 app.use(session({
   store:  MongoStore.create({
-    mongoUrl: keys.mongodb.dbURI,
+    mongoUrl: process.env.dbURI|| keys.mongodb.dbURI,
     secret,
     touchAfter: 24 * 3600,//// this one works in seconds not milliseconds
   }),
@@ -204,7 +204,7 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 1000;
 // database connection
 //const dbURI = 'mongodb+srv://abd:text1234@nodetuts.w28wcbw.mongodb.net/note-tuts';
-mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.dbURI||keys.mongodb.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then((result) => app.listen(port, () => {
     console.log(`listening On Port ${port}`);//
 
