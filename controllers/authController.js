@@ -43,10 +43,11 @@ module.exports.signup_post = async (req, res, next) => {
 }
 
 module.exports.login_post = (req, res) => {
-  //console.log("req.session");
+  console.log("req.session");
   req.flash('success', 'welcome');
   const redirectUrl = req.session.returnTo || '/';
   delete req.session.returnTo;
+  console.log(redirectUrl);
   res.redirect(redirectUrl);
   //res.redirect('/');
 };

@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 const moment = require('moment'); // require 21/09/2022
 moment.locale('en');
- console.log(moment('2022-09-25T17:22:44.889+00:00').format('DD/MM/YYYY'));
-  console.log(moment('2022-09-25T17:22:44.889+00:00').fromNow());
+//  console.log(moment('2022-09-25T17:22:44.889+00:00').format('DD/MM/YYYY'));
+//   console.log(moment('2022-09-25T17:22:44.889+00:00').fromNow());
     
 
 
