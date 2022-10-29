@@ -29,7 +29,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "nodemon app.js"
+    "serve": "nodemon app.js",
+   
+    "start": "cross-env NODE_ENV=dev npm run serve"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -42,15 +46,16 @@ app.use(flash());
 store.on('error', function (err) {
 console.log('session stor error',err)}); 
 */
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
-
+const secret = process.env.SECRET ||'keyboard cat'
 app.use(session({
   store:  MongoStore.create({
     mongoUrl: keys.mongodb.dbURI,
-    secret: 'keyboard cat',
+    secret,
     touchAfter: 24 * 3600,//// this one works in seconds not milliseconds
   }),
-  secret: 'keyboard cat',
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 * 24 }//,secure: true
@@ -196,16 +201,16 @@ app.use((err, req, res, next) => {
   next();
 });
 
-
+const port = process.env.PORT || 1000;
 // database connection
 //const dbURI = 'mongodb+srv://abd:text1234@nodetuts.w28wcbw.mongodb.net/note-tuts';
 mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-  .then((result) => app.listen(1000, () => {
-    console.log('listening On Port 1000');//
+  .then((result) => app.listen(port, () => {
+    console.log(`listening On Port ${port}`);//
 
   }))
   .catch((err) => console.log(err));
 
 
-
+// "start": "npm run serve",
 
