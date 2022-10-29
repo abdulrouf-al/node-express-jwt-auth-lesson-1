@@ -28,6 +28,7 @@
     "validator": "^13.7.0"
   },
   "scripts": {
+    "build": "netlify-lambda build express",
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "nodemon app.js" 
